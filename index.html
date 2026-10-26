@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Laboratório interativo de Lógica e Linguagem de Programação — Semanas 24, 25 e 26.">
+  <meta name="color-scheme" content="light dark">
+  <title>Lógica e Linguagem de Programação | Semanas 24–26</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("llp_theme");
+        const preferred = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (_) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="reading-progress" aria-hidden="true"><span id="readingProgress"></span></div>
+
+  <header class="topbar" id="topo">
+    <div class="container topbar__inner">
+      <a class="brand" href="#inicio">
+        <span class="brand__mark">&gt;_</span>
+        <span><strong>Lógica e Linguagem de Programação</strong><small>Semanas 24, 25 e 26</small></span>
+      </a>
+      <nav class="nav" id="mainNav" aria-label="Navegação principal">
+        <a href="#semana24">Semana 24</a>
+        <a href="#semana25">Semana 25</a>
+        <a href="#semana26">Semana 26</a>
+        <a href="#materiais">Materiais</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#entrega">Entrega</a>
+      </nav>
+      <div class="topbar__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-pressed="false" aria-label="Ativar modo escuro">
+          <span id="themeIcon" aria-hidden="true">☾</span><span class="desktop-label">Tema</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero section" id="inicio">
+      <div class="container hero__grid">
+        <div>
+          <span class="eyebrow">Python no navegador</span>
+          <h1>Leia. Altere. Execute. Entenda.</h1>
+          <p class="hero__lead">Um laboratório para praticar repetição, listas, funções, arquivos e refatoração diretamente no site — com código editável, terminal, registros, quiz e PDF final.</p>
+          <div class="button-row">
+            <a class="btn btn--primary" href="#semana24">Começar pela Semana 24</a>
+            <a class="btn btn--ghost" href="#entrega">Ver meu progresso</a>
+          </div>
+          <div class="chips">
+            <span>input()</span><span>if/elif/else</span><span>for</span><span>while</span><span>listas</span><span>funções</span><span>CSV</span><span>refatoração</span>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <p class="hero-card__label">EVOLUÇÃO</p>
+          <div class="flow-stack">
+            <span>Programa interativo</span><b>↓</b>
+            <span>Quiz + repetição</span><b>↓</b>
+            <span>Menu + listas + funções</span><b>↓</b>
+            <span>Arquivos CSV</span><b>↓</b>
+            <span>Refatoração + testes</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Como funciona</span>
+          <h2>Um laboratório seguro para experimentar</h2>
+          <p>O Python é carregado no navegador. Para manter a interface responsiva, a execução acontece em um Web Worker separado.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card"><span>1</span><h3>Leia</h3><p>Entenda o conceito antes do código.</p></article>
+          <article class="step-card"><span>2</span><h3>Modifique</h3><p>Altere o código inicial no editor.</p></article>
+          <article class="step-card"><span>3</span><h3>Execute</h3><p>Use entradas em fila e veja a saída no terminal.</p></article>
+          <article class="step-card"><span>4</span><h3>Explique</h3><p>Registre o resultado e responda à teoria.</p></article>
+        </div>
+        <article class="notice">
+          <strong>Sobre o input():</strong>
+          <span>cada linha do campo “Entradas do programa” alimenta um <code>input()</code> em ordem. Isso permite executar programas interativos com segurança dentro do Web Worker.</span>
+        </article>
+        <div class="runtime-status" id="runtimeStatus" aria-live="polite">
+          <span class="status-dot"></span>
+          <strong>Python ainda não carregado.</strong>
+          <button type="button" class="btn btn--small btn--secondary" id="loadPython">Preparar Python</button>
+          <a class="btn btn--small btn--ghost-dark" href="https://onecompiler.com/python" target="_blank" rel="noopener noreferrer">Alternativa: Python online ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="semana24">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Semana 24</span>
+          <h2>Quiz e desafios no terminal</h2>
+          <p>Programa interativo, <code>input()</code>, decisões, <code>for</code>, <code>while</code>, listas, índices e pontuação.</p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card"><span class="concept-badge">1</span><h3>Perguntar</h3><p><code>input()</code> apresenta uma pergunta e recebe uma entrada.</p></article>
+          <article class="concept-card"><span class="concept-badge">2</span><h3>Verificar</h3><p><code>if / elif / else</code> decide o que fazer com a resposta.</p></article>
+          <article class="concept-card"><span class="concept-badge">3</span><h3>Repetir</h3><p><code>for</code> quando a quantidade é conhecida; <code>while</code> quando depende de uma condição.</p></article>
+        </div>
+
+        <div class="two-column">
+          <article class="panel"><span class="tag">FOR</span><h3>Quantidade conhecida</h3><pre><code>for i in range(5):
+    print(i)</code></pre><p>O programa sabe antes de começar quantas repetições serão feitas.</p></article>
+          <article class="panel"><span class="tag">WHILE</span><h3>Condição que muda</h3><pre><code>tentativas = 3
+while tentativas &gt; 0:
+    tentativas -= 1</code></pre><p>A repetição continua enquanto a condição permanecer verdadeira.</p></article>
+        </div>
+
+        <article class="analogy"><strong>Listas paralelas:</strong><span>quando perguntas e respostas estão em listas diferentes, o mesmo índice conecta os itens correspondentes. A ordem precisa ser mantida.</span></article>
+
+        <div class="lab-shell" data-lab="s24">
+          <div class="lab-heading">
+            <div><span class="tag">PYTHON LAB • SEMANA 24</span><h3>Quiz de treino — edite e execute</h3></div>
+            <span class="lab-state" id="s24LabState">Não executado</span>
+          </div>
+          <p class="lab-note">O código abaixo é um exemplo didático de treino. O registro oficial pede um quiz temático de ciências com 5 perguntas, pontuação e mensagem final.</p>
+          <div class="lab-grid">
+            <div class="editor-pane">
+              <label for="s24Code">Código Python</label>
+              <textarea class="code-editor" id="s24Code" spellcheck="false" aria-label="Editor Python da Semana 24"></textarea>
+              <label for="s24Input">Entradas do programa — uma por linha</label>
+              <textarea class="stdin-editor" id="s24Input" spellcheck="false" placeholder="4&#10;marte&#10;7"></textarea>
+              <div class="lab-actions">
+                <button type="button" class="btn btn--primary run-code" data-lab="s24">Executar ▶</button>
+                <button type="button" class="btn btn--danger stop-code" data-lab="s24" disabled>Parar ■</button>
+                <button type="button" class="btn btn--secondary reset-code" data-lab="s24">Restaurar</button>
+                <button type="button" class="btn btn--ghost-dark copy-code" data-lab="s24">Copiar</button>
+                <button type="button" class="btn btn--ghost-dark download-code" data-lab="s24">Baixar .py</button>
+              </div>
+            </div>
+            <div class="terminal-pane">
+              <div class="terminal-head"><strong>Terminal</strong><button type="button" class="text-btn clear-terminal" data-lab="s24">Limpar</button></div>
+              <pre class="terminal" id="s24Output" aria-live="polite">Execute o código para ver a saída.</pre>
+            </div>
+          </div>
+        </div>
+
+        <article class="activity-block" id="registro24">
+          <div class="activity-title"><span>Registro 1 • Semana 24</span><h3>Quiz temático de ciências</h3></div>
+          <p>Preserve a produção obrigatória do roteiro: duas listas com 5 perguntas/respostas, <code>pontos</code> antes do loop, <code>for range(5)</code>, <code>input()</code>, verificação com condicionais e mensagem final após o loop.</p>
+          <form class="activity-form" novalidate>
+            <label for="s24_r1">1. Resultado quando você executou o quiz acertando as 5 perguntas.</label>
+            <textarea id="s24_r1" data-answer data-min-length="3" data-label="Semana 24 — teste com 5 acertos"></textarea>
+            <label for="s24_r2">2. Resultado quando você executou acertando exatamente 3 perguntas.</label>
+            <textarea id="s24_r2" data-answer data-min-length="3" data-label="Semana 24 — teste com 3 acertos"></textarea>
+            <label for="s24_r3">3. Resultado quando você executou errando todas.</label>
+            <textarea id="s24_r3" data-answer data-min-length="3" data-label="Semana 24 — teste com 0 acertos"></textarea>
+            <label for="s24_r4">4. O que acontece se <code>pontos &gt;= 1</code> vier antes de <code>pontos == 5</code> na cadeia de condições?</label>
+            <textarea id="s24_r4" data-answer data-min-length="10" data-label="Semana 24 — ordem das condições"></textarea>
+            <label for="s24_r5">5. Por que as mensagens personalizadas precisam ficar depois do loop?</label>
+            <textarea id="s24_r5" data-answer data-min-length="10" data-label="Semana 24 — mensagem depois do loop"></textarea>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="semana25">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Semana 25</span>
+          <h2>Do menu ao sistema completo</h2>
+          <p>Listas, funções, modularização, validação, menu e persistência em arquivos CSV na Papelaria Ponto Certo.</p>
+        </div>
+
+        <div class="system-equation">
+          <span>LISTAS</span><b>+</b><span>FUNÇÕES</span><b>+</b><span>MENU</span><b>+</b><span>VALIDAÇÃO</span><b>+</b><span>ARQUIVOS</span><b>=</b><span>MINISSISTEMA</span>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card"><span class="concept-badge">DEF</span><h3>Modularização</h3><p>Cada função recebe uma responsabilidade clara. O menu coordena, mas não precisa fazer tudo.</p></article>
+          <article class="concept-card"><span class="concept-badge">[]</span><h3>Dados em memória</h3><p><code>produtos</code> e <code>vendas</code> existem durante a execução.</p></article>
+          <article class="concept-card"><span class="concept-badge">CSV</span><h3>Persistência</h3><p>O arquivo permite recuperar dados depois de fechar e abrir o programa novamente.</p></article>
+        </div>
+
+        <div class="lab-shell lab-shell--dark" data-lab="s25">
+          <div class="lab-heading">
+            <div><span class="tag">PYTHON LAB • SEMANA 25</span><h3>Papelaria Ponto Certo — menu, vendas e CSV</h3></div>
+            <span class="lab-state" id="s25LabState">Não executado</span>
+          </div>
+          <p class="lab-note">Use as entradas em ordem. O laboratório possui sistema de arquivos virtual; arquivos <code>.csv</code> e <code>.txt</code> criados são preservados no navegador entre execuções desta atividade.</p>
+          <div class="lab-grid">
+            <div class="editor-pane">
+              <label for="s25Code">Código Python</label>
+              <textarea class="code-editor" id="s25Code" spellcheck="false" aria-label="Editor Python da Semana 25"></textarea>
+              <label for="s25Input">Entradas do programa — uma por linha</label>
+              <textarea class="stdin-editor" id="s25Input" spellcheck="false" placeholder="1&#10;Caderno&#10;2&#10;2026-10-25&#10;0"></textarea>
+              <div class="lab-actions">
+                <button type="button" class="btn btn--primary run-code" data-lab="s25">Executar ▶</button>
+                <button type="button" class="btn btn--danger stop-code" data-lab="s25" disabled>Parar ■</button>
+                <button type="button" class="btn btn--secondary reset-code" data-lab="s25">Restaurar</button>
+                <button type="button" class="btn btn--ghost copy-code" data-lab="s25">Copiar</button>
+                <button type="button" class="btn btn--ghost download-code" data-lab="s25">Baixar .py</button>
+              </div>
+            </div>
+            <div class="terminal-pane">
+              <div class="terminal-head"><strong>Terminal</strong><button type="button" class="text-btn clear-terminal" data-lab="s25">Limpar</button></div>
+              <pre class="terminal" id="s25Output" aria-live="polite">Execute o código para ver a saída.</pre>
+              <div class="virtual-files">
+                <div class="terminal-head"><strong>Arquivos do laboratório</strong><button type="button" class="text-btn reset-files" data-lab="s25">Reiniciar arquivos</button></div>
+                <div id="s25Files" class="file-list"><p>Nenhum arquivo criado.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <article class="activity-block activity-block--light" id="registro25">
+          <div class="activity-title"><span>Registro 2 • Semana 25</span><h3>Registrando e corrigindo vendas: Papelaria Ponto Certo</h3></div>
+          <div class="checklist" id="s25Checklist">
+            <label><input type="checkbox" data-check="s25_c1"> Registrei venda de produto existente.</label>
+            <label><input type="checkbox" data-check="s25_c2"> Testei produto inexistente.</label>
+            <label><input type="checkbox" data-check="s25_c3"> Cancelei um registro válido.</label>
+            <label><input type="checkbox" data-check="s25_c4"> Testei cancelamento inválido.</label>
+            <label><input type="checkbox" data-check="s25_c5"> Conferi o conteúdo de <code>vendas.csv</code>.</label>
+            <label><input type="checkbox" data-check="s25_c6"> Reexecutei e conferi a persistência do histórico.</label>
+          </div>
+          <form class="activity-form" novalidate>
+            <label for="s25_r1">1. Por que <code>salvar_vendas()</code> deve ser chamada depois de uma alteração?</label>
+            <textarea id="s25_r1" data-answer data-min-length="10" data-label="Semana 25 — salvar vendas"></textarea>
+            <label for="s25_r2">2. Por que <code>carregar_vendas()</code> precisa ser usada na abertura do programa?</label>
+            <textarea id="s25_r2" data-answer data-min-length="10" data-label="Semana 25 — carregar vendas"></textarea>
+            <label for="s25_r3">3. O que deve acontecer ao tentar registrar uma venda de produto inexistente?</label>
+            <textarea id="s25_r3" data-answer data-min-length="8" data-label="Semana 25 — produto inexistente"></textarea>
+            <label for="s25_r4">4. Explique a diferença entre a lista em memória e o arquivo CSV.</label>
+            <textarea id="s25_r4" data-answer data-min-length="10" data-label="Semana 25 — memória e CSV"></textarea>
+            <label for="s25_r5">5. Por que validar a quantidade antes de alterar a lista de vendas?</label>
+            <textarea id="s25_r5" data-answer data-min-length="10" data-label="Semana 25 — validação da quantidade"></textarea>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="semana26">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Semana 26</span>
+          <h2>Organizar, refatorar e testar</h2>
+          <p>Um programa pode funcionar e ainda ser repetitivo ou difícil de manter. A refatoração melhora a organização interna preservando o comportamento esperado.</p>
+        </div>
+
+        <div class="refactor-banner"><strong>FUNCIONAR</strong><span>≠</span><strong>ESTAR BEM ORGANIZADO</strong></div>
+
+        <div class="two-column">
+          <article class="panel"><span class="tag">ANTES</span><h3>Repetição</h3><pre><code>produto = ["Caderno", 20.0]
+print(produto[0] + " - R$ " + str(produto[1]))</code></pre><p>A mesma regra de exibição pode acabar espalhada por várias funções.</p></article>
+          <article class="panel"><span class="tag">DEPOIS</span><h3>Responsabilidade clara</h3><pre><code>def formatar_produto(nome, preco):
+    return f"{nome} - R$ {preco:.2f}"</code></pre><p>A regra fica concentrada em um ponto reutilizável.</p></article>
+        </div>
+
+        <div class="lab-shell" data-lab="s26">
+          <div class="lab-heading">
+            <div><span class="tag">PYTHON LAB • SEMANA 26</span><h3>Refatoração da Papelaria</h3></div>
+            <span class="lab-state" id="s26LabState">Não executado</span>
+          </div>
+          <p class="lab-note">O código inicial possui repetição proposital. Refatore usando <code>formatar_produto()</code> e <code>buscar_produto()</code>, mantendo a saída equivalente.</p>
+          <div class="lab-grid">
+            <div class="editor-pane">
+              <label for="s26Code">Código Python</label>
+              <textarea class="code-editor" id="s26Code" spellcheck="false" aria-label="Editor Python da Semana 26"></textarea>
+              <label for="s26Input">Entradas do programa — uma por linha</label>
+              <textarea class="stdin-editor" id="s26Input" spellcheck="false" placeholder="caderno"></textarea>
+              <div class="lab-actions">
+                <button type="button" class="btn btn--primary run-code" data-lab="s26">Executar ▶</button>
+                <button type="button" class="btn btn--danger stop-code" data-lab="s26" disabled>Parar ■</button>
+                <button type="button" class="btn btn--secondary reset-code" data-lab="s26">Restaurar</button>
+                <button type="button" class="btn btn--ghost-dark copy-code" data-lab="s26">Copiar</button>
+                <button type="button" class="btn btn--ghost-dark download-code" data-lab="s26">Baixar .py</button>
+              </div>
+            </div>
+            <div class="terminal-pane">
+              <div class="terminal-head"><strong>Terminal</strong><button type="button" class="text-btn clear-terminal" data-lab="s26">Limpar</button></div>
+              <pre class="terminal" id="s26Output" aria-live="polite">Execute o código para ver a saída.</pre>
+            </div>
+          </div>
+        </div>
+
+        <article class="activity-block" id="registro26">
+          <div class="activity-title"><span>Registro 3 • Semana 26</span><h3>Deixando o código pronto para a próxima manutenção</h3></div>
+          <form class="activity-form" novalidate>
+            <label for="s26_r1">1. Quais funções do sistema precisavam localizar um produto pelo nome?</label>
+            <textarea id="s26_r1" data-answer data-min-length="5" data-label="Semana 26 — funções com busca repetida"></textarea>
+            <label for="s26_r2">2. Qual é a única responsabilidade de <code>formatar_produto()</code>?</label>
+            <textarea id="s26_r2" data-answer data-min-length="8" data-label="Semana 26 — responsabilidade formatar_produto"></textarea>
+            <label for="s26_r3">3. Qual é a única responsabilidade de <code>buscar_produto()</code>?</label>
+            <textarea id="s26_r3" data-answer data-min-length="8" data-label="Semana 26 — responsabilidade buscar_produto"></textarea>
+            <label for="s26_r4">4. Qual outra repetição você encontrou ou qual validação decidiu reorganizar?</label>
+            <textarea id="s26_r4" data-answer data-min-length="8" data-label="Semana 26 — terceira oportunidade"></textarea>
+            <label for="s26_r5">5. Qual função você propôs para concentrar essa lógica?</label>
+            <input id="s26_r5" type="text" data-answer data-min-length="2" data-label="Semana 26 — função proposta">
+            <label for="s26_r6">6. O que ficou menor, mais claro ou menos repetido depois da refatoração?</label>
+            <textarea id="s26_r6" data-answer data-min-length="10" data-label="Semana 26 — comparação antes e depois"></textarea>
+            <label for="s26_r7">7. O programa continuou apresentando o mesmo comportamento esperado? Explique como você verificou.</label>
+            <textarea id="s26_r7" data-answer data-min-length="10" data-label="Semana 26 — teste após refatoração"></textarea>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--soft" id="materiais">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Materiais originais</span>
+          <h2>PPTX e roteiros das três semanas</h2>
+          <p>Os arquivos fornecidos foram preservados dentro do projeto.</p>
+        </div>
+
+        <h3 class="materials-title">Semana 24 — Quiz e desafios no terminal</h3>
+        <div class="materials-grid">
+          <article class="material-card"><span>PPTX</span><h4>Aula 1</h4><p>Como funciona um programa interativo.</p><a class="btn btn--secondary" href="materiais/semana24/aula1-programa-interativo.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 2</h4><p>Perguntas, tentativas e pontuação.</p><a class="btn btn--secondary" href="materiais/semana24/aula2-tentativas-pontuacao.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 3</h4><p>Quiz com listas e for.</p><a class="btn btn--secondary" href="materiais/semana24/aula3-quiz-listas-for.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 4</h4><p>Quiz temático de ciências.</p><a class="btn btn--secondary" href="materiais/semana24/aula4-quiz-ciencias.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>DOCX</span><h4>Roteiro</h4><p>Registro oficial do quiz de ciências.</p><a class="btn btn--secondary" href="materiais/semana24/roteiro-quiz-ciencias.docx" download>Baixar</a></article>
+        </div>
+
+        <h3 class="materials-title">Semana 25 — Do menu ao sistema completo</h3>
+        <div class="materials-grid">
+          <article class="material-card"><span>PPTX</span><h4>Aula 1</h4><p>Enxergando o sistema por partes.</p><a class="btn btn--secondary" href="materiais/semana25/aula1-sistema-por-partes.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 2</h4><p>Quem faz o quê: dados e funções.</p><a class="btn btn--secondary" href="materiais/semana25/aula2-dados-funcoes.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 3</h4><p>Montando o minissistema.</p><a class="btn btn--secondary" href="materiais/semana25/aula3-montando-minissistema.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 4</h4><p>Completando as opções do sistema.</p><a class="btn btn--secondary" href="materiais/semana25/aula4-completando-sistema.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>DOCX</span><h4>Roteiro</h4><p>Registrando e corrigindo vendas.</p><a class="btn btn--secondary" href="materiais/semana25/roteiro-vendas-papelaria.docx" download>Baixar</a></article>
+        </div>
+
+        <h3 class="materials-title">Semana 26 — Organização e manutenção</h3>
+        <div class="materials-grid">
+          <article class="material-card"><span>PPTX</span><h4>Aula 1</h4><p>O que torna um programa fácil de entender.</p><a class="btn btn--secondary" href="materiais/semana26/aula1-programa-facil-entender.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 2</h4><p>Funções, repetição e organização.</p><a class="btn btn--secondary" href="materiais/semana26/aula2-funcoes-repeticao-organizacao.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 3</h4><p>Deixando o projeto mais claro.</p><a class="btn btn--secondary" href="materiais/semana26/aula3-refatoracao-manutencao.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>PPTX</span><h4>Aula 4</h4><p>Testes, revisão em pares e apresentação.</p><a class="btn btn--secondary" href="materiais/semana26/aula4-testes-revisao-apresentacao.pptx" download>Baixar</a></article>
+          <article class="material-card"><span>DOCX</span><h4>Roteiro</h4><p>Refatoração para a próxima manutenção.</p><a class="btn btn--secondary" href="materiais/semana26/roteiro-refatoracao.docx" download>Baixar</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="quiz">
+      <div class="container quiz-container">
+        <div class="section-heading">
+          <span class="eyebrow">Quiz final</span>
+          <h2>Teoria + leitura de código</h2>
+          <p>São 15 questões. O relatório final exige 15/15, mas você pode corrigir qualquer erro.</p>
+        </div>
+        <div class="quiz-status"><span>Acertos confirmados</span><strong><span id="quizScore">0</span>/<span id="quizTotal">15</span></strong></div>
+        <div id="quizList" class="quiz-list"></div>
+        <button class="btn btn--ghost" id="resetQuiz" type="button">Reiniciar quiz</button>
+      </div>
+    </section>
+
+    <section class="section section--soft" id="entrega">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Entrega</span>
+          <h2>Identificação, progresso e PDF</h2>
+          <p>O PDF só é liberado depois dos três registros, de pelo menos uma execução em cada laboratório e de 100% no quiz.</p>
+        </div>
+        <div class="identity-card">
+          <label for="studentName">Nome</label><input id="studentName" type="text" autocomplete="name" placeholder="Nome completo">
+          <label for="studentClass">Turma</label><input id="studentClass" type="text" placeholder="Ex.: 1º DS A">
+        </div>
+        <div class="progress-layout">
+          <article class="progress-card">
+            <h3>Seu progresso</h3>
+            <div class="progress-item"><span>Identificação</span><strong id="progIdentity">Pendente</strong></div>
+            <div class="progress-item"><span>Semana 24</span><strong id="progS24">0/0</strong></div>
+            <div class="progress-item"><span>Semana 25</span><strong id="progS25">0/0</strong></div>
+            <div class="progress-item"><span>Semana 26</span><strong id="progS26">0/0</strong></div>
+            <div class="progress-item"><span>Quiz</span><strong id="progQuiz">0/15</strong></div>
+            <div class="progress-total"><span>Progresso geral</span><strong id="progPercent">0%</strong></div>
+            <div class="progress-bar"><span id="progressBarFill"></span></div>
+          </article>
+          <article class="pending-card">
+            <h3>Pendências</h3>
+            <ul id="pendingList" aria-live="polite"><li>Preencha sua identificação e comece as atividades.</li></ul>
+          </article>
+        </div>
+        <div class="final-actions">
+          <button class="btn btn--secondary" id="checkPending" type="button">Verificar conclusão</button>
+          <button class="btn btn--primary" id="generatePdf" type="button" disabled>🔒 Gerar / Salvar atividade em PDF</button>
+          <button class="btn btn--danger" id="clearAnswers" type="button">Limpar minhas respostas</button>
+        </div>
+        <p class="save-note" id="saveStatus" aria-live="polite">As respostas e códigos são salvos automaticamente neste navegador.</p>
+      </div>
+    </section>
+
+    <section class="print-report" id="printReport" aria-hidden="true">
+      <header class="report-header">
+        <h1>Lógica e Linguagem de Programação</h1>
+        <p>Semanas 24, 25 e 26 — Relatório de Atividades</p>
+        <dl>
+          <div><dt>Nome:</dt><dd id="reportName"></dd></div>
+          <div><dt>Turma:</dt><dd id="reportClass"></dd></div>
+          <div><dt>Data:</dt><dd id="reportDate"></dd></div>
+        </dl>
+      </header>
+      <section class="report-section"><h2>Semana 24 — Quiz temático</h2><div id="reportS24"></div><h3>Código final</h3><pre><code id="reportCode24"></code></pre><h3>Última saída registrada</h3><pre id="reportOut24"></pre></section>
+      <section class="report-section"><h2>Semana 25 — Papelaria Ponto Certo</h2><div id="reportS25"></div><h3>Código final</h3><pre><code id="reportCode25"></code></pre><h3>Última saída registrada</h3><pre id="reportOut25"></pre><h3>vendas.csv</h3><pre id="reportCsv25"></pre></section>
+      <section class="report-section"><h2>Semana 26 — Refatoração</h2><div id="reportS26"></div><h3>Código final</h3><pre><code id="reportCode26"></code></pre><h3>Última saída registrada</h3><pre id="reportOut26"></pre></section>
+      <section class="report-section"><h2>Quiz final</h2><p><strong>Resultado:</strong> <span id="reportScore"></span></p><div id="reportQuiz"></div></section>
+      <footer class="report-footer"><strong>Atividades concluídas</strong><p>Relatório liberado após validação dos registros, execução dos laboratórios e 100% no quiz.</p></footer>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div><strong>Lógica e Linguagem de Programação</strong><p>Laboratório didático — Semanas 24 a 26.</p></div>
+      <a href="#topo">Voltar ao topo</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
