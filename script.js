@@ -313,10 +313,12 @@ function setRuntimeStatus(status, message="") {
     else if(status==="error") strong.textContent=`Falha ao carregar Python${message?": "+message:""}`;
     else strong.textContent="Python ainda não carregado.";
   }
-  $$(".run-code").forEach(btn=>btn.disabled=status!=="ready");
+  $(".run-code").forEach(btn=>btn.disabled=status!=="ready" || pendingRuns.size>0);
+  $(".stop-code").forEach(btn=>btn.disabled=!Array.from(pendingRuns.values()).some(run=>run.lab===btn.dataset.lab));
 }
 
 function createWorker() {
+  if(pendingRuns.size){showToast("Interrompa o programa antes de reiniciar o Python.");return}
   if(pythonWorker) pythonWorker.terminate();
   pythonWorker = new Worker("./python-worker.mjs",{type:"module"});
   setRuntimeStatus("loading");
@@ -330,11 +332,11 @@ function createWorker() {
       const run=pendingRuns.get(data.id);
       if(!run)return;
       pendingRuns.delete(data.id);
-      finishRun(run.lab,data.output||"",data.files||{});
+      finishRun(run.lab,data.output||"",data.files||{},data.success===true);
     }
   });
   pythonWorker.addEventListener("error",event=>{
-    setRuntimeStatus("error",event.message||"erro no Web Worker");
+    setRuntimeStatus("error",event.message||"Não foi possível iniciar o Python. Verifique a conexão.");
     for(const {lab} of pendingRuns.values()) setLabBusy(lab,false);
     pendingRuns.clear();
   });
@@ -356,7 +358,8 @@ function setLabBusy(lab,busy){
 }
 
 function runLab(lab){
-  if(runtimeState!=="ready"||!pythonWorker){ensureRuntime();return}
+  if(runtimeState!=="ready"||!pythonWorker){ensureRuntime();showToast("Aguarde Python pronto e execute novamente.");return}
+  if(pendingRuns.size){showToast("Já existe uma execução em andamento. Use Parar se necessário.");return}
   const code=$(`#${lab}Code`)?.value||"";
   const stdin=$(`#${lab}Input`)?.value||"";
   if(!code.trim()){showToast("Escreva algum código antes de executar.");return}
@@ -369,12 +372,12 @@ function runLab(lab){
   pythonWorker.postMessage({type:"run",id,code,stdin,files:state.labs[lab].files||{}});
 }
 
-function finishRun(lab,output,files){
-  state.labs[lab].attempted=true;
+function finishRun(lab,output,files,success){
+  state.labs[lab].attempted=success;
   state.labs[lab].output=output;
   state.labs[lab].files=files||{};
   const out=$(`#${lab}Output`);if(out)out.textContent=output||"(sem saída)";
-  const badge=$(`#${lab}LabState`);if(badge){badge.textContent="Executado ✓";badge.classList.add("is-done")}
+  const badge=$(`#${lab}LabState`);if(badge){badge.textContent=success?"Executado ✓":"Corrija o erro";badge.classList.toggle("is-done",success)}
   setLabBusy(lab,false);renderFiles(lab);saveState();updateProgress();
 }
 
@@ -385,9 +388,11 @@ $$(".stop-code").forEach(btn=>btn.addEventListener("click",()=>{
   pythonWorker=null;pendingRuns.clear();
   setLabBusy(lab,false);
   const out=$(`#${lab}Output`);if(out)out.textContent+="\n\n[Execução interrompida pelo estudante.]";
-  state.labs[lab].attempted=true;state.labs[lab].output=out?.textContent||"Execução interrompida.";
+  state.labs[lab].attempted=false;state.labs[lab].output=out?.textContent||"Execução interrompida.";
   saveState();updateProgress();showToast("Execução interrompida. O Python será recarregado na próxima execução.");
-  setRuntimeStatus("idle");$$(".run-code").forEach(b=>b.disabled=true);
+  setRuntimeStatus("idle");
+  const badge=$(`#${lab}LabState`);if(badge){badge.textContent="Interrompido";badge.classList.remove("is-done")}
+  createWorker();
 }));
 
 /* Editor */
@@ -493,7 +498,7 @@ function restoreUI(){
     const saved=state.labs[lab];
     const editor=$(`#${lab}Code`),input=$(`#${lab}Input`),out=$(`#${lab}Output`),badge=$(`#${lab}LabState`);
     if(editor)editor.value=saved.code||starterCodes[lab];
-    if(input)input.value=saved.stdin||starterInputs[lab];
+    if(input)input.value=saved.stdin !== "" ? saved.stdin : (saved.code ? "" : starterInputs[lab]);
     if(out&&saved.output)out.textContent=saved.output;
     if(saved.attempted&&badge){badge.textContent="Executado ✓";badge.classList.add("is-done")}
     renderFiles(lab);
@@ -599,4 +604,4 @@ bindPersistence();
 renderQuiz();
 updateProgress();
 setRuntimeStatus("idle");
-$$(".run-code").forEach(btn=>btn.disabled=true);
+createWorker();
