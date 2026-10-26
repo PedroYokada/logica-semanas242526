@@ -10,7 +10,7 @@ async function ensurePyodide(notify = true) {
     pyodidePromise = loadPyodide();
   }
   pyodide = await pyodidePromise;
-  pyodide.FS.mkdirTree(LAB_DIR);
+  try { pyodide.FS.mkdirTree(LAB_DIR); } catch (_) {}
   if (notify) self.postMessage({ type: "status", status: "ready" });
   return pyodide;
 }
@@ -98,14 +98,18 @@ def __site_input(prompt=""):
     return value
 
 __site_globals = {"__name__": "__main__"}
+__site_success = True
 
 with contextlib.redirect_stdout(__site_out), contextlib.redirect_stderr(__site_out):
     builtins.input = __site_input
     try:
         exec(compile(__site_student_code, "<codigo-do-estudante>", "exec"), __site_globals, __site_globals)
     except SystemExit as exc:
+        if exc.code not in (None, 0):
+            __site_success = False
         print(f"Programa encerrado: {exc}")
-    except Exception:
+    except BaseException:
+        __site_success = False
         traceback.print_exc()
     finally:
         builtins.input = __site_original_input
@@ -117,9 +121,10 @@ __site_output = __site_out.getvalue()
     const output = String(outputProxy ?? "");
     if (outputProxy?.destroy) outputProxy.destroy();
 
+    const success = pyodide.globals.get("__site_success") === true;
     const files = collectFiles();
-    self.postMessage({ type: "result", id, output, files });
+    self.postMessage({ type: "result", id, output, files, success });
   } catch (error) {
-    self.postMessage({ type: "result", id, output: `Erro do ambiente Python:\n${error?.message || String(error)}`, files: {} });
+    self.postMessage({ type: "result", id, output: `Erro do ambiente Python:\n${error?.message || String(error)}`, files: {}, success: false });
   }
 };
