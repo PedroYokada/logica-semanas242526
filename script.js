@@ -313,7 +313,7 @@ function setRuntimeStatus(status, message="") {
     else if(status==="error") strong.textContent=`Falha ao carregar Python${message?": "+message:""}`;
     else strong.textContent="Python ainda não carregado.";
   }
-  document.querySelectorAll(".run-code").forEach(btn=>{btn.disabled=status!=="ready" || pendingRuns.size>0;});
+  document.querySelectorAll(".run-code").forEach(btn=>{btn.disabled=pendingRuns.size>0;btn.title=status==="error"?"Clique para tentar carregar o Python novamente.":"";});
   document.querySelectorAll(".stop-code").forEach(btn=>{btn.disabled=!Array.from(pendingRuns.values()).some(run=>run.lab===btn.dataset.lab);});
 }
 
@@ -326,6 +326,8 @@ function createWorker() {
     const data=event.data||{};
     if(data.type==="status"){
       setRuntimeStatus(data.status,data.error||"");
+      if(data.status==="ready" && queuedLab && !pendingRuns.size){const next=queuedLab;queuedLab=null;runLab(next)}
+      if(data.status==="error") queuedLab=null;
       return;
     }
     if(data.type==="result"){
@@ -336,6 +338,7 @@ function createWorker() {
     }
   });
   pythonWorker.addEventListener("error",event=>{
+    queuedLab=null;
     setRuntimeStatus("error",event.message||"Não foi possível iniciar o Python. Verifique a conexão.");
     for(const {lab} of pendingRuns.values()) setLabBusy(lab,false);
     pendingRuns.clear();
@@ -347,18 +350,19 @@ $("#loadPython")?.addEventListener("click",createWorker);
 
 async function ensureRuntime() {
   if(runtimeState==="ready"&&pythonWorker)return true;
-  createWorker();
-  showToast("Preparando o Python. Aguarde o status 'Python pronto'.");
+  if(runtimeState!=="loading") createWorker();
+  showToast("Preparando Python. O código será executado quando estiver pronto.");
   return false;
 }
 
 function setLabBusy(lab,busy){
-  $(`.run-code[data-lab="${lab}"]`)?.toggleAttribute("disabled",busy||runtimeState!=="ready");
+  $(".run-code").forEach(btn=>btn.disabled=busy);
   $(`.stop-code[data-lab="${lab}"]`)?.toggleAttribute("disabled",!busy);
 }
 
+let queuedLab=null;
 function runLab(lab){
-  if(runtimeState!=="ready"||!pythonWorker){ensureRuntime();showToast("Aguarde Python pronto e execute novamente.");return}
+  if(runtimeState!=="ready"||!pythonWorker){queuedLab=lab;ensureRuntime();return}
   if(pendingRuns.size){showToast("Já existe uma execução em andamento. Use Parar se necessário.");return}
   const code=$(`#${lab}Code`)?.value||"";
   const stdin=$(`#${lab}Input`)?.value||"";
@@ -390,6 +394,7 @@ $$(".stop-code").forEach(btn=>btn.addEventListener("click",()=>{
   const out=$(`#${lab}Output`);if(out)out.textContent+="\n\n[Execução interrompida pelo estudante.]";
   state.labs[lab].attempted=false;state.labs[lab].output=out?.textContent||"Execução interrompida.";
   saveState();updateProgress();showToast("Execução interrompida. O Python será recarregado na próxima execução.");
+  queuedLab=null;
   setRuntimeStatus("idle");
   const badge=$(`#${lab}LabState`);if(badge){badge.textContent="Interrompido";badge.classList.remove("is-done")}
   createWorker();
