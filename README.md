@@ -151,3 +151,6 @@ python-worker.mjs
 README.md
 RELATORIO_VALIDACAO.md
 ```
+
+
+<!-- Revisão das atividades: execução Python, validação e publicação GitHub Pages. -->
