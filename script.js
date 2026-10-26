@@ -313,8 +313,8 @@ function setRuntimeStatus(status, message="") {
     else if(status==="error") strong.textContent=`Falha ao carregar Python${message?": "+message:""}`;
     else strong.textContent="Python ainda não carregado.";
   }
-  $(".run-code").forEach(btn=>btn.disabled=status!=="ready" || pendingRuns.size>0);
-  $(".stop-code").forEach(btn=>btn.disabled=!Array.from(pendingRuns.values()).some(run=>run.lab===btn.dataset.lab));
+  document.querySelectorAll(".run-code").forEach(btn=>{btn.disabled=status!=="ready" || pendingRuns.size>0;});
+  document.querySelectorAll(".stop-code").forEach(btn=>{btn.disabled=!Array.from(pendingRuns.values()).some(run=>run.lab===btn.dataset.lab);});
 }
 
 function createWorker() {
