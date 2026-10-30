@@ -60,3 +60,89 @@ pre{max-width:100%;overflow-x:auto;white-space:pre}.skip-link{position:fixed;lef
   .report-answer,.report-quiz-item{border:1px solid #bbb;padding:9px}.report-footer{margin-top:20px;padding-top:10px;border-top:2px solid #000}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+
+/* =========================================================
+   ANÁLISE DE CÓDIGO - PLANO B ESTÁVEL
+========================================================= */
+.analysis-mode-note {
+  border-left-color: var(--secondary);
+}
+
+.analysis-code-card {
+  margin-top: 26px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.section--dark .analysis-code-card {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.analysis-badge {
+  flex: 0 0 auto;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  color: var(--secondary);
+  font-size: .78rem;
+  font-weight: 850;
+}
+
+.analysis-code {
+  width: calc(100% - 48px);
+  max-width: calc(100% - 48px);
+  margin: 22px 24px;
+  padding: 18px;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: var(--code-bg);
+  color: var(--code-text);
+  line-height: 1.55;
+  font-size: .84rem;
+}
+
+.analysis-question {
+  padding: 0 24px 24px;
+}
+
+.analysis-question label {
+  display: block;
+  margin-bottom: 9px;
+  font-weight: 850;
+}
+
+.analysis-question textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  padding: .8rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+@media (max-width: 760px) {
+  .analysis-code {
+    width: calc(100% - 36px);
+    max-width: calc(100% - 36px);
+    margin: 18px;
+  }
+  .analysis-question {
+    padding: 0 18px 18px;
+  }
+}
+
+@media (max-width: 425px) {
+  .analysis-code {
+    font-size: .76rem;
+  }
+}
