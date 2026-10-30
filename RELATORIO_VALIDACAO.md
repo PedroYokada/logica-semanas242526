@@ -1,314 +1,101 @@
 # RELATÓRIO DE VALIDAÇÃO
 
-## Projeto
+## Alteração aplicada
 
-**Lógica e Linguagem de Programação — Semanas 24, 25 e 26**
+A versão anterior dependia de Pyodide carregado por CDN dentro de um Web Worker.
 
-## 1. Estrutura estática
+Embora esse padrão seja suportado pelo Pyodide, a execução estava apresentando problemas reais para os estudantes. Para evitar que uma dependência externa impeça a entrega da atividade, foi adotado o Plano B pedagógico: **análise de código + questão dissertativa**.
 
-Verificações executadas:
+## Arquivos alterados
 
-- `node --check script.js`: **OK**;
-- `node --check python-worker.mjs`: **OK**;
-- IDs duplicados: **0**;
-- referências locais quebradas em `href`/`src`: **0**;
-- chaves CSS: **215 abrindo / 215 fechando**;
-- materiais originais encontrados: **15**.
+- `index.html`
+- `script.js`
+- `styles.css`
+- `README.md`
+- `RELATORIO_VALIDACAO.md`
 
-## 2. Materiais
+Arquivo removido:
 
-Foram preservados:
+- `python-worker.mjs`
 
-- 5 arquivos da Semana 24;
-- 5 arquivos da Semana 25;
-- 5 arquivos da Semana 26.
+## O que foi removido
 
-Total: **15 arquivos**.
+- botão Preparar Python;
+- Web Worker;
+- Pyodide;
+- botões Executar e Parar;
+- terminal;
+- editor Python;
+- entradas simuladas para `input()`;
+- sistema de arquivos virtual.
 
-## 3. Responsividade
+## O que foi preservado
 
-Teste automatizado em Chromium headless usando o HTML/CSS/JavaScript reais do projeto.
+- conteúdos das Semanas 24, 25 e 26;
+- trechos de código Python;
+- registros;
+- questões teóricas;
+- quiz com 15 questões;
+- `localStorage`;
+- modo claro/escuro;
+- menu mobile;
+- progresso;
+- geração de PDF;
+- materiais originais.
 
-| Viewport | scrollWidth | clientWidth | Overflow |
-|---:|---:|---:|---:|
-| 320 px | 320 | 320 | 0 px |
-| 375 px | 375 | 375 | 0 px |
-| 425 px | 425 | 425 | 0 px |
-| 768 px | 768 | 768 | 0 px |
-| 1024 px | 1024 | 1024 | 0 px |
-| 1366 px | 1366 | 1366 | 0 px |
-| 1920 px | 1920 | 1920 | 0 px |
-
-Resultado: **nenhum overflow horizontal global detectado**.
-
-Também foram feitas capturas visuais em 375 px e 1366 px para revisão de hierarquia, hero, cabeçalho e empilhamento mobile.
-
-## 4. Menu
-
-Testes:
-
-- abrir menu mobile: **OK**;
-- `aria-expanded=true`: **OK**;
-- fechar com `Esc`: **OK**;
-- `aria-expanded=false`: **OK**;
-- abrir em mobile e aumentar para desktop: menu é normalizado/fechado: **OK**.
-
-## 5. Tema
-
-Teste de alternância claro/escuro: **OK**.
-
-A estrutura usa variáveis CSS para editor, terminal, cards, formulários e componentes.
-
-Persistência é feita por `localStorage`.
-
-## 6. Quiz
-
-Testes:
-
-- resposta errada: pontuação permanece em 0: **OK**;
-- corrigir a mesma questão: pontuação passa para 1: **OK**;
-- pontuação usada no progresso: **OK**;
-- regra final exige 15/15: **OK**.
-
-## 7. Progresso e PDF
-
-Cenários testados:
-
-### Campos completos + quiz correto + laboratórios não executados
-Resultado: **PDF bloqueado**.
-
-### Todos os registros + checklists + 15/15 + três laboratórios marcados como executados
-Resultado: **100% / PDF liberado**.
-
-### Depois de 100%, apagar uma resposta obrigatória
-Resultado: **PDF bloqueado novamente**.
-
-### Preencher novamente
-Resultado: **PDF liberado novamente**.
-
-## 8. Validação por tipo de campo
-
-Foi testado um campo técnico da Semana 26 com:
-
-```html
-data-min-length="2"
-```
-
-Resultado:
-
-- 1 caractere: **bloqueia**;
-- 2 caracteres: **aceita**.
-
-Isso evita aplicar um mínimo fixo de 10 caracteres a respostas técnicas curtas.
-
-## 9. Validação dupla do PDF
-
-O teste substituiu `window.print()` por um contador.
-
-### Estado completo
-Clique em gerar PDF:
-
-```text
-print = 1
-```
-
-### Depois, resposta obrigatória apagada e botão visualmente forçado para enabled
-Novo clique:
-
-```text
-print continua = 1
-```
-
-Resultado: a função de geração **revalida os dados** e não depende somente de `disabled`.
-
-## 10. Modo de impressão
-
-Em mídia `print`:
-
-- `#printReport`: **display block**;
-- `.topbar`: **display none**.
-
-O relatório inclui:
-
-- identificação;
-- três registros;
-- código final de cada laboratório;
-- última saída;
-- checklist da Semana 25;
-- `vendas.csv` quando disponível;
-- quiz;
-- resposta escolhida;
-- resposta correta;
-- resultado final.
-
-## 11. Persistência
-
-O ambiente de navegação do contêiner bloqueia `localStorage` em páginas `about:blank`, então foi usado um mock com a mesma API para testar a lógica de persistência.
-
-Teste:
-
-1. preencher nome;
-2. alterar código da Semana 24;
-3. salvar pelo fluxo normal;
-4. limpar DOM/estado em memória;
-5. chamar `loadState()` + `restoreUI()`.
-
-Resultado restaurado:
-
-```text
-Nome: Persistente
-Código: print(123)
-```
-
-Resultado da lógica de persistência: **OK**.
-
-## 12. Códigos Python iniciais
-
-Os códigos iniciais foram extraídos do JavaScript e executados em CPython local.
+## Nova estratégia pedagógica
 
 ### Semana 24
 
-Entradas de teste correspondentes às 5 perguntas.
+O código do quiz fica visível e o estudante precisa explicar o papel de:
 
-Resultado:
-
-```text
-Pontuação final: 5
-Perfeito! Você é um expert em ciências!
-```
-
-Exit code: **0**.
+- `for`;
+- índice;
+- listas;
+- condicionais;
+- pontuação.
 
 ### Semana 25
 
-Fluxo testado:
+O código de vendas fica visível e o estudante precisa explicar:
 
-```text
-registrar Caderno
-quantidade 2
-data
-listar
-sair
-```
-
-Resultado:
-
-- venda registrada;
-- venda listada;
-- `vendas.csv` criado.
-
-Conteúdo:
-
-```csv
-produto,quantidade,data
-Caderno,2,2026-10-25
-```
-
-Exit code: **0**.
+- memória;
+- persistência;
+- salvar;
+- carregar;
+- arquivo CSV.
 
 ### Semana 26
 
-Entrada:
+O código com busca repetida fica visível e o estudante precisa:
 
-```text
-caderno
-```
+- identificar repetição;
+- propor `buscar_produto()`;
+- explicar por que a refatoração melhora a manutenção.
 
-Resultado:
+## Validação estática realizada antes do commit
 
-- produtos listados;
-- consulta encontra Caderno.
+- JavaScript novo analisado pelo parser do V8: **OK**;
+- IDs duplicados no HTML transformado: **0**;
+- referências visuais a `Preparar Python`: **0**;
+- botões `.run-code`: **0**;
+- botões `.stop-code`: **0**;
+- dependência de `python-worker.mjs` no HTML/JS: **removida**.
 
-Exit code: **0**.
+## Regra do PDF
 
-## 13. Estratégia de input()
+O progresso agora depende somente de:
 
-Foi executado localmente o mesmo modelo de fila utilizado pelo Worker.
+- identificação;
+- respostas obrigatórias das três semanas;
+- 15/15 no quiz.
 
-Código de teste:
+Não existe mais requisito de “executar o laboratório”.
 
-```python
-nome = input("Nome: ")
-idade = input("Idade: ")
-print("Olá", nome, idade)
-```
+A função de geração continua chamando a validação novamente no clique, portanto o PDF permanece bloqueado se alguma resposta obrigatória estiver vazia.
 
-Entradas:
+## Limitação
 
-```text
-Pedro
-18
-```
+A página publicada no GitHub Pages não pôde ser aberta pelo ambiente automatizado desta revisão. Por isso, não foi declarado um teste visual ao vivo da URL publicada.
 
-Saída:
-
-```text
-Nome: Pedro
-Idade: 18
-Olá Pedro 18
-```
-
-Resultado da lógica de entrada: **OK**.
-
-## 14. Worker / interrupção
-
-O Worker foi revisado para:
-
-- executar fora da thread principal;
-- restaurar arquivos do laboratório;
-- capturar stdout/stderr;
-- devolver arquivos `.csv`/`.txt`;
-- permitir `terminate()` pelo botão Parar;
-- recriar o ambiente após interrupção.
-
-Durante a revisão foi encontrado e corrigido um problema de estado: a mensagem de “Python pronto” poderia reabilitar o botão Executar durante uma execução. O Worker agora notifica `ready` apenas na inicialização, evitando dupla execução acidental.
-
-## 15. Limitação do teste Pyodide
-
-O Chromium disponível neste ambiente bloqueia navegação para `localhost` por política administrativa e também bloqueou `fetch()` externo para o CDN do Pyodide.
-
-Por isso, **não foi possível carregar o WebAssembly do Pyodide dentro deste ambiente de teste**.
-
-O projeto utiliza API documentada do Pyodide:
-
-- Web Worker;
-- `loadPyodide()`;
-- `pyodide.FS`;
-- `runPythonAsync()`.
-
-A integração foi validada por:
-
-- sintaxe JavaScript;
-- revisão do Worker;
-- documentação oficial;
-- execução local dos códigos Python;
-- teste local da estratégia de `input()`;
-- testes completos da UI sem o runtime externo.
-
-Recomenda-se, antes da aula, abrir a versão publicada no GitHub Pages em uma máquina com internet e confirmar:
-
-1. clicar **Preparar Python**;
-2. aguardar **Python pronto ✓**;
-3. executar `print("Olá")`;
-4. testar uma entrada;
-5. criar `vendas.csv`;
-6. testar **Parar** com um loop infinito.
-
-## 16. Resultado final da revisão
-
-| Funcionalidade | Resultado |
-|---|---|
-| HTML / IDs / caminhos | OK |
-| CSS / overflow | OK |
-| Menu mobile | OK |
-| Tema | OK |
-| Editor e salvamento de código | OK |
-| Quiz | OK |
-| Progresso | OK |
-| PDF incompleto bloqueado | OK |
-| PDF completo liberado | OK |
-| Validação dupla do PDF | OK |
-| Impressão / relatório | OK |
-| Códigos Python iniciais em CPython | OK |
-| Lógica da fila de input | OK |
-| Pyodide real no Chromium deste ambiente | LIMITAÇÃO DO AMBIENTE |
+A alteração foi escolhida justamente para eliminar a parte dependente de runtime externo e reduzir o risco de falha no ambiente escolar.
