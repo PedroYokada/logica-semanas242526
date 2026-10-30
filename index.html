@@ -52,9 +52,9 @@
     <section class="hero section" id="inicio">
       <div class="container hero__grid">
         <div>
-          <span class="eyebrow">Python no navegador</span>
+          <span class="eyebrow">Análise de código Python</span>
           <h1>Leia. Altere. Execute. Entenda.</h1>
-          <p class="hero__lead">Um laboratório para praticar repetição, listas, funções, arquivos e refatoração diretamente no site — com código editável, terminal, registros, quiz e PDF final.</p>
+          <p class="hero__lead">Um roteiro interativo para analisar repetição, listas, funções, arquivos e refatoração — com trechos de Python, questões dissertativas, quiz, progresso e PDF final.</p>
           <div class="button-row">
             <a class="btn btn--primary" href="#semana24">Começar pela Semana 24</a>
             <a class="btn btn--ghost" href="#entrega">Ver meu progresso</a>
@@ -80,26 +80,19 @@
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Como funciona</span>
-          <h2>Um laboratório seguro para experimentar</h2>
-          <p>O Python é carregado no navegador. Para manter a interface responsiva, a execução acontece em um Web Worker separado.</p>
+          <h2>Leia o código e explique o raciocínio</h2>
+          <p>Para evitar falhas de execução no GitHub Pages, os códigos ficam disponíveis para leitura e análise. O estudante deve interpretar o fluxo, prever resultados e justificar suas respostas.</p>
         </div>
         <div class="steps-grid">
           <article class="step-card"><span>1</span><h3>Leia</h3><p>Entenda o conceito antes do código.</p></article>
-          <article class="step-card"><span>2</span><h3>Modifique</h3><p>Altere o código inicial no editor.</p></article>
-          <article class="step-card"><span>3</span><h3>Execute</h3><p>Use entradas em fila e veja a saída no terminal.</p></article>
+          <article class="step-card"><span>2</span><h3>Rastreie</h3><p>Acompanhe variáveis, condições, repetições e funções.</p></article>
+          <article class="step-card"><span>3</span><h3>Preveja</h3><p>Determine o que o código faria antes de responder.</p></article>
           <article class="step-card"><span>4</span><h3>Explique</h3><p>Registre o resultado e responda à teoria.</p></article>
         </div>
-        <article class="notice">
-          <strong>Sobre o input():</strong>
-          <span>cada linha do campo “Entradas do programa” alimenta um <code>input()</code> em ordem. Isso permite executar programas interativos com segurança dentro do Web Worker.</span>
+        <article class="notice analysis-mode-note">
+          <strong>Modo de análise:</strong>
+          <span>o executor Python foi removido para garantir que a atividade funcione de forma estável em todas as máquinas. Leia cada código, acompanhe o fluxo e responda às questões dissertativas.</span>
         </article>
-        <div class="runtime-status" id="runtimeStatus" aria-live="polite">
-          <span class="status-dot"></span>
-          <strong>Python ainda não carregado.</strong>
-          <button type="button" class="btn btn--small btn--secondary" id="loadPython">Preparar Python</button>
-          <small id="appVersion" style="font-size:0.75rem;opacity:0.8">Versão do laboratório: 26/10 — revisão 3</small>
-          <a class="btn btn--small btn--ghost-dark" href="https://onecompiler.com/python" target="_blank" rel="noopener noreferrer">Alternativa: Python online ↗</a>
-        </div>
       </div>
     </section>
 
@@ -127,42 +120,61 @@ while tentativas &gt; 0:
 
         <article class="analogy"><strong>Listas paralelas:</strong><span>quando perguntas e respostas estão em listas diferentes, o mesmo índice conecta os itens correspondentes. A ordem precisa ser mantida.</span></article>
 
-        <div class="lab-shell" data-lab="s24">
+        <article class="analysis-code-card" id="analise24">
           <div class="lab-heading">
-            <div><span class="tag">PYTHON LAB • SEMANA 24</span><h3>Quiz de treino — edite e execute</h3></div>
-            <span class="lab-state" id="s24LabState">Não executado</span>
+            <div><span class="tag">ANÁLISE DE CÓDIGO • SEMANA 24</span><h3>Quiz de ciências — acompanhe o fluxo</h3></div>
+            <span class="analysis-badge">Leitura + raciocínio</span>
           </div>
-          <p class="lab-note">O código abaixo é um exemplo didático de treino. O registro oficial pede um quiz temático de ciências com 5 perguntas, pontuação e mensagem final.</p>
-          <div class="lab-grid">
-            <div class="editor-pane">
-              <label for="s24Code">Código Python</label>
-              <textarea class="code-editor" id="s24Code" spellcheck="false" aria-label="Editor Python da Semana 24"></textarea>
-              <label for="s24Input">Entradas do programa — uma por linha</label>
-              <textarea class="stdin-editor" id="s24Input" spellcheck="false" placeholder="4&#10;marte&#10;7"></textarea>
-              <div class="lab-actions">
-                <button type="button" class="btn btn--primary run-code" data-lab="s24">Executar ▶</button>
-                <button type="button" class="btn btn--danger stop-code" data-lab="s24" disabled>Parar ■</button>
-                <button type="button" class="btn btn--secondary reset-code" data-lab="s24">Restaurar</button>
-                <button type="button" class="btn btn--ghost-dark copy-code" data-lab="s24">Copiar</button>
-                <button type="button" class="btn btn--ghost-dark download-code" data-lab="s24">Baixar .py</button>
-              </div>
-            </div>
-            <div class="terminal-pane">
-              <div class="terminal-head"><strong>Terminal</strong><button type="button" class="text-btn clear-terminal" data-lab="s24">Limpar</button></div>
-              <pre class="terminal" id="s24Output" aria-live="polite">Execute o código para ver a saída.</pre>
-            </div>
+          <p class="lab-note">Observe as listas, o índice <code>i</code>, a variável <code>pontos</code> e a ordem das condições. Não é necessário executar o código.</p>
+          <pre class="analysis-code"><code id="analysisCode24">perguntas = [
+    "Qual planeta é conhecido como planeta vermelho?",
+    "Qual é o maior planeta do Sistema Solar?",
+    "Quantas câmaras possui o coração humano?",
+    "Qual gás as plantas absorvem na fotossíntese?",
+    "Qual é a fórmula química da água?"
+]
+
+respostas = [
+    "marte",
+    "júpiter",
+    "4",
+    "dióxido de carbono",
+    "h2o"
+]
+
+pontos = 0
+
+for i in range(5):
+    resposta = input(perguntas[i] + " ")
+
+    if resposta.strip().lower() == respostas[i].lower():
+        pontos += 1
+
+print("Pontuação final:", pontos)
+
+if pontos == 5:
+    print("Perfeito!")
+elif pontos &gt;= 3:
+    print("Bom trabalho!")
+elif pontos &gt;= 1:
+    print("Continue tentando.")
+else:
+    print("Estude mais um pouco.")</code></pre>
+          <div class="analysis-question">
+            <label for="s24_analysis">Explique o caminho percorrido pelo programa desde a primeira pergunta até a mensagem final. Em sua resposta, cite o papel de <code>for</code>, <code>i</code>, das duas listas e da variável <code>pontos</code>.</label>
+            <textarea id="s24_analysis" data-answer data-min-length="20" data-label="Semana 24 — análise do código do quiz"></textarea>
           </div>
-        </div>
+        </article>
 
         <article class="activity-block" id="registro24">
           <div class="activity-title"><span>Registro 1 • Semana 24</span><h3>Quiz temático de ciências</h3></div>
           <p>Preserve a produção obrigatória do roteiro: duas listas com 5 perguntas/respostas, <code>pontos</code> antes do loop, <code>for range(5)</code>, <code>input()</code>, verificação com condicionais e mensagem final após o loop.</p>
           <form class="activity-form" novalidate>
-            <label for="s24_r1">1. Resultado quando você executou o quiz acertando as 5 perguntas.</label>
+            <label for="s24_r1">1. Se todas as 5 respostas estiverem corretas, qual será a pontuação e qual mensagem final será exibida?</label>
             <textarea id="s24_r1" data-answer data-min-length="3" data-label="Semana 24 — teste com 5 acertos"></textarea>
-            <label for="s24_r2">2. Resultado quando você executou acertando exatamente 3 perguntas.</label>
+            <label for="s24_r2">2. Se exatamente 3 respostas estiverem corretas, qual será a pontuação e qual mensagem final será exibida?</label>
             <textarea id="s24_r2" data-answer data-min-length="3" data-label="Semana 24 — teste com 3 acertos"></textarea>
-            <label for="s24_r3">3. Resultado quando você executou errando todas.</label>
+            <label for="s24_r3">3. Se nenhuma resposta estiver correta, qual será a pontuação e qual mensagem final será exibida?</label>
             <textarea id="s24_r3" data-answer data-min-length="3" data-label="Semana 24 — teste com 0 acertos"></textarea>
             <label for="s24_r4">4. O que acontece se <code>pontos &gt;= 1</code> vier antes de <code>pontos == 5</code> na cadeia de condições?</label>
             <textarea id="s24_r4" data-answer data-min-length="10" data-label="Semana 24 — ordem das condições"></textarea>
@@ -191,47 +203,51 @@ while tentativas &gt; 0:
           <article class="concept-card"><span class="concept-badge">CSV</span><h3>Persistência</h3><p>O arquivo permite recuperar dados depois de fechar e abrir o programa novamente.</p></article>
         </div>
 
-        <div class="lab-shell lab-shell--dark" data-lab="s25">
+        <article class="analysis-code-card analysis-code-card--dark" id="analise25">
           <div class="lab-heading">
-            <div><span class="tag">PYTHON LAB • SEMANA 25</span><h3>Papelaria Ponto Certo — menu, vendas e CSV</h3></div>
-            <span class="lab-state" id="s25LabState">Não executado</span>
+            <div><span class="tag">ANÁLISE DE CÓDIGO • SEMANA 25</span><h3>Papelaria Ponto Certo — memória e persistência</h3></div>
+            <span class="analysis-badge">Leitura + raciocínio</span>
           </div>
-          <p class="lab-note">Use as entradas em ordem. O laboratório possui sistema de arquivos virtual; arquivos <code>.csv</code> e <code>.txt</code> criados são preservados no navegador entre execuções desta atividade.</p>
-          <div class="lab-grid">
-            <div class="editor-pane">
-              <label for="s25Code">Código Python</label>
-              <textarea class="code-editor" id="s25Code" spellcheck="false" aria-label="Editor Python da Semana 25"></textarea>
-              <label for="s25Input">Entradas do programa — uma por linha</label>
-              <textarea class="stdin-editor" id="s25Input" spellcheck="false" placeholder="1&#10;Caderno&#10;2&#10;2026-10-25&#10;0"></textarea>
-              <div class="lab-actions">
-                <button type="button" class="btn btn--primary run-code" data-lab="s25">Executar ▶</button>
-                <button type="button" class="btn btn--danger stop-code" data-lab="s25" disabled>Parar ■</button>
-                <button type="button" class="btn btn--secondary reset-code" data-lab="s25">Restaurar</button>
-                <button type="button" class="btn btn--ghost copy-code" data-lab="s25">Copiar</button>
-                <button type="button" class="btn btn--ghost download-code" data-lab="s25">Baixar .py</button>
-              </div>
-            </div>
-            <div class="terminal-pane">
-              <div class="terminal-head"><strong>Terminal</strong><button type="button" class="text-btn clear-terminal" data-lab="s25">Limpar</button></div>
-              <pre class="terminal" id="s25Output" aria-live="polite">Execute o código para ver a saída.</pre>
-              <div class="virtual-files">
-                <div class="terminal-head"><strong>Arquivos do laboratório</strong><button type="button" class="text-btn reset-files" data-lab="s25">Reiniciar arquivos</button></div>
-                <div id="s25Files" class="file-list"><p>Nenhum arquivo criado.</p></div>
-              </div>
-            </div>
+          <p class="lab-note">Analise como as funções dividem responsabilidades e como o arquivo <code>vendas.csv</code> representa persistência fora da memória do programa.</p>
+          <pre class="analysis-code"><code id="analysisCode25">import csv
+import os
+
+def salvar_vendas(vendas):
+    with open("vendas.csv", "w", newline="", encoding="utf-8") as arquivo:
+        escritor = csv.writer(arquivo)
+        escritor.writerow(["produto", "quantidade", "data"])
+        escritor.writerows(vendas)
+
+def carregar_vendas():
+    if not os.path.exists("vendas.csv"):
+        return []
+
+    vendas = []
+    with open("vendas.csv", "r", encoding="utf-8") as arquivo:
+        leitor = csv.reader(arquivo)
+        next(leitor, None)
+        for linha in leitor:
+            vendas.append(linha)
+    return vendas
+
+def registrar_venda(produtos, vendas):
+    nome = input("Produto: ")
+    quantidade = int(input("Quantidade: "))
+
+    if quantidade &lt;= 0:
+        print("Quantidade inválida.")
+        return
+
+    vendas.append([nome, quantidade])
+    salvar_vendas(vendas)</code></pre>
+          <div class="analysis-question">
+            <label for="s25_analysis">Explique por que <code>carregar_vendas()</code> e <code>salvar_vendas()</code> têm responsabilidades diferentes. Depois, explique o que pode acontecer se a lista for alterada, mas o arquivo não for salvo.</label>
+            <textarea id="s25_analysis" data-answer data-min-length="20" data-label="Semana 25 — análise do código de vendas"></textarea>
           </div>
-        </div>
+        </article>
 
         <article class="activity-block activity-block--light" id="registro25">
           <div class="activity-title"><span>Registro 2 • Semana 25</span><h3>Registrando e corrigindo vendas: Papelaria Ponto Certo</h3></div>
-          <div class="checklist" id="s25Checklist">
-            <label><input type="checkbox" data-check="s25_c1"> Registrei venda de produto existente.</label>
-            <label><input type="checkbox" data-check="s25_c2"> Testei produto inexistente.</label>
-            <label><input type="checkbox" data-check="s25_c3"> Cancelei um registro válido.</label>
-            <label><input type="checkbox" data-check="s25_c4"> Testei cancelamento inválido.</label>
-            <label><input type="checkbox" data-check="s25_c5"> Conferi o conteúdo de <code>vendas.csv</code>.</label>
-            <label><input type="checkbox" data-check="s25_c6"> Reexecutei e conferi a persistência do histórico.</label>
-          </div>
           <form class="activity-form" novalidate>
             <label for="s25_r1">1. Por que <code>salvar_vendas()</code> deve ser chamada depois de uma alteração?</label>
             <textarea id="s25_r1" data-answer data-min-length="10" data-label="Semana 25 — salvar vendas"></textarea>
@@ -265,32 +281,40 @@ print(produto[0] + " - R$ " + str(produto[1]))</code></pre><p>A mesma regra de e
     return f"{nome} - R$ {preco:.2f}"</code></pre><p>A regra fica concentrada em um ponto reutilizável.</p></article>
         </div>
 
-        <div class="lab-shell" data-lab="s26">
+        <article class="analysis-code-card" id="analise26">
           <div class="lab-heading">
-            <div><span class="tag">PYTHON LAB • SEMANA 26</span><h3>Refatoração da Papelaria</h3></div>
-            <span class="lab-state" id="s26LabState">Não executado</span>
+            <div><span class="tag">ANÁLISE DE CÓDIGO • SEMANA 26</span><h3>Refatoração — encontre a repetição</h3></div>
+            <span class="analysis-badge">Leitura + raciocínio</span>
           </div>
-          <p class="lab-note">O código inicial possui repetição proposital. Refatore usando <code>formatar_produto()</code> e <code>buscar_produto()</code>, mantendo a saída equivalente.</p>
-          <div class="lab-grid">
-            <div class="editor-pane">
-              <label for="s26Code">Código Python</label>
-              <textarea class="code-editor" id="s26Code" spellcheck="false" aria-label="Editor Python da Semana 26"></textarea>
-              <label for="s26Input">Entradas do programa — uma por linha</label>
-              <textarea class="stdin-editor" id="s26Input" spellcheck="false" placeholder="caderno"></textarea>
-              <div class="lab-actions">
-                <button type="button" class="btn btn--primary run-code" data-lab="s26">Executar ▶</button>
-                <button type="button" class="btn btn--danger stop-code" data-lab="s26" disabled>Parar ■</button>
-                <button type="button" class="btn btn--secondary reset-code" data-lab="s26">Restaurar</button>
-                <button type="button" class="btn btn--ghost-dark copy-code" data-lab="s26">Copiar</button>
-                <button type="button" class="btn btn--ghost-dark download-code" data-lab="s26">Baixar .py</button>
-              </div>
-            </div>
-            <div class="terminal-pane">
-              <div class="terminal-head"><strong>Terminal</strong><button type="button" class="text-btn clear-terminal" data-lab="s26">Limpar</button></div>
-              <pre class="terminal" id="s26Output" aria-live="polite">Execute o código para ver a saída.</pre>
-            </div>
+          <p class="lab-note">Compare as duas buscas repetidas e pense em como uma função única poderia concentrar essa regra sem mudar o comportamento esperado.</p>
+          <pre class="analysis-code"><code id="analysisCode26">produtos = [
+    ["Caderno", 20.0],
+    ["Caneta", 3.5],
+    ["Lápis", 2.0]
+]
+
+def consultar_produto(produtos):
+    nome = input("Produto: ")
+
+    for produto in produtos:
+        if produto[0].lower() == nome.lower():
+            print(produto[0], produto[1])
+            return
+
+def produto_existe(produtos, nome):
+    for produto in produtos:
+        if produto[0].lower() == nome.lower():
+            return True
+    return False
+
+# Desafio:
+# identifique a repetição e proponha
+# formatar_produto() e buscar_produto().</code></pre>
+          <div class="analysis-question">
+            <label for="s26_analysis">Identifique a repetição existente e descreva como você criaria <code>buscar_produto(produtos, nome)</code>. Explique também por que essa refatoração facilita a manutenção.</label>
+            <textarea id="s26_analysis" data-answer data-min-length="20" data-label="Semana 26 — análise da refatoração"></textarea>
           </div>
-        </div>
+        </article>
 
         <article class="activity-block" id="registro26">
           <div class="activity-title"><span>Registro 3 • Semana 26</span><h3>Deixando o código pronto para a próxima manutenção</h3></div>
@@ -307,7 +331,7 @@ print(produto[0] + " - R$ " + str(produto[1]))</code></pre><p>A mesma regra de e
             <input id="s26_r5" type="text" data-answer data-min-length="2" data-label="Semana 26 — função proposta">
             <label for="s26_r6">6. O que ficou menor, mais claro ou menos repetido depois da refatoração?</label>
             <textarea id="s26_r6" data-answer data-min-length="10" data-label="Semana 26 — comparação antes e depois"></textarea>
-            <label for="s26_r7">7. O programa continuou apresentando o mesmo comportamento esperado? Explique como você verificou.</label>
+            <label for="s26_r7">7. Como você verificaria se uma refatoração preservou o mesmo comportamento esperado do programa?</label>
             <textarea id="s26_r7" data-answer data-min-length="10" data-label="Semana 26 — teste após refatoração"></textarea>
           </form>
         </article>
@@ -369,7 +393,7 @@ print(produto[0] + " - R$ " + str(produto[1]))</code></pre><p>A mesma regra de e
         <div class="section-heading">
           <span class="eyebrow">Entrega</span>
           <h2>Identificação, progresso e PDF</h2>
-          <p>O PDF só é liberado depois dos três registros, de pelo menos uma execução em cada laboratório e de 100% no quiz.</p>
+          <p>O PDF só é liberado depois das três análises de código, dos registros e de 100% no quiz.</p>
         </div>
         <div class="identity-card">
           <label for="studentName">Nome</label><input id="studentName" type="text" autocomplete="name" placeholder="Nome completo">
@@ -410,11 +434,11 @@ print(produto[0] + " - R$ " + str(produto[1]))</code></pre><p>A mesma regra de e
           <div><dt>Data:</dt><dd id="reportDate"></dd></div>
         </dl>
       </header>
-      <section class="report-section"><h2>Semana 24 — Quiz temático</h2><div id="reportS24"></div><h3>Código final</h3><pre><code id="reportCode24"></code></pre><h3>Última saída registrada</h3><pre id="reportOut24"></pre></section>
-      <section class="report-section"><h2>Semana 25 — Papelaria Ponto Certo</h2><div id="reportS25"></div><h3>Código final</h3><pre><code id="reportCode25"></code></pre><h3>Última saída registrada</h3><pre id="reportOut25"></pre><h3>vendas.csv</h3><pre id="reportCsv25"></pre></section>
-      <section class="report-section"><h2>Semana 26 — Refatoração</h2><div id="reportS26"></div><h3>Código final</h3><pre><code id="reportCode26"></code></pre><h3>Última saída registrada</h3><pre id="reportOut26"></pre></section>
+      <section class="report-section"><h2>Semana 24 — Quiz temático</h2><div id="reportS24"></div><h3>Código analisado</h3><pre><code id="reportCode24"></code></pre></section>
+      <section class="report-section"><h2>Semana 25 — Papelaria Ponto Certo</h2><div id="reportS25"></div><h3>Código analisado</h3><pre><code id="reportCode25"></code></pre></section>
+      <section class="report-section"><h2>Semana 26 — Refatoração</h2><div id="reportS26"></div><h3>Código analisado</h3><pre><code id="reportCode26"></code></pre></section>
       <section class="report-section"><h2>Quiz final</h2><p><strong>Resultado:</strong> <span id="reportScore"></span></p><div id="reportQuiz"></div></section>
-      <footer class="report-footer"><strong>Atividades concluídas</strong><p>Relatório liberado após validação dos registros, execução dos laboratórios e 100% no quiz.</p></footer>
+      <footer class="report-footer"><strong>Atividades concluídas</strong><p>Relatório liberado após validação das análises, dos registros e 100% no quiz.</p></footer>
     </section>
   </main>
 
@@ -426,6 +450,6 @@ print(produto[0] + " - R$ " + str(produto[1]))</code></pre><p>A mesma regra de e
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js?v=20261026-3"></script>
+  <script src="script.js?v=20261030-analysis"></script>
 </body>
 </html>
